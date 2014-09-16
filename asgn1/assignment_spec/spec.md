@@ -40,5 +40,5 @@ This application is out of 100 points.
 6. As a user, I want to be to filter the list/calendar based on team/sport.
   - The user needs to be able to filter which teams they want to see and exclude other games (for example in the calandar view they need to be able to select that they want to view all Tennis matches and Soccor games but don't want to see Football games)
 7. As a user, I want to be able find a link to teams recent performance history.
-- There  needs to be links at the bottom of each teams page that links to ESPN
+  - There  needs to be links at the bottom of each teams page that links to ESPN
 
