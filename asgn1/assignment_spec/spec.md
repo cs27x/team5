@@ -37,8 +37,10 @@ This application is out of 100 points.
 5. (15 pts) - As a user, I want to be able to view games in both list and calandar format.
   - There should be a way for users to view the games for a team is both formats.
   - There should be a way for users to view the games for a week in both formats.
-6. As a user, I want to be to filter the list/calendar based on team/sport.
+6. (10 pts) - As a user, I want to be to filter the list/calendar based on team/sport.
   - The user needs to be able to filter which teams they want to see and exclude other games (for example in the calandar view they need to be able to select that they want to view all Tennis matches and Soccor games but don't want to see Football games)
-7. As a user, I want to be able find a link to teams recent performance history.
+7. (5 pts) - As a user, I want to be able find a link to teams recent performance history.
   - There  needs to be links at the bottom of each teams page that links to ESPN
+8. (15 pts) - There needs to be proper JavaDoc Comments 
+9. (20 pts) - There needs to be proper object oriented design  (EVERYTHING SHOULD BE OBJECTS!)
 
