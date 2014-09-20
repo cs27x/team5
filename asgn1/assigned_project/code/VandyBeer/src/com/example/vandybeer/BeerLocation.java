@@ -11,7 +11,7 @@ public class BeerLocation {
 	private int zipCode;
 	private double latitude, longitude;
 	
-	BeerLocation(){
+	public BeerLocation(){
 		businessName = "";	businessOwner = ""; state = "";
 		city = "";	address = "";
 		permitType = 0;	zipCode = 0;
