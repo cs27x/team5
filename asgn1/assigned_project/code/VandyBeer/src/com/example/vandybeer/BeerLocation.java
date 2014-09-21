@@ -1,6 +1,10 @@
 package com.example.vandybeer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,8 +20,10 @@ public class BeerLocation {
 	private String city;
 	private int zipCode;
 	private double latitude, longitude;
-	// Storing the comments
-	private Map<String, String> comments = new HashMap<String,String>(); //<k,v> is <beer name, beer comment>
+	// Storing the location's beers - want to store list of beers for a given location
+	private Set<String> locBeers = new HashSet<String>();
+	// Storing the location's beers + comments
+	private Map<String, String> beerComments = new HashMap<String,String>(); //<k,v> is <beer, comment>
 	
 	public BeerLocation(@JsonProperty("business_name") String businessName,
 			@JsonProperty("business_owner") String businessOwner,
@@ -89,14 +95,9 @@ public class BeerLocation {
 		return state;
 	} 
 	
-	// Get beer comment by name
-	public String getComment(String beerName){
-		String com = "No Comment.";
-		if(comments.containsKey(beerName))
-		{
-			com = comments.get(beerName);
-		}
-		return beerName + ": " + com;
+	// Get beer list from location
+	public Set<String> getBeers(){
+		return locBeers;
 	}
 	
 	public void setBusinessName(String name){
@@ -140,9 +141,28 @@ public class BeerLocation {
 		state = nState;
 	}
 	
-	// Set comment for given beer
-	public void setComment(String nBeer, String nComment){
-		comments.put(nBeer,nComment);
+	// Add beer to location set
+	public void addBeer(String nBeer){
+		locBeers.add(nBeer);
+	}
+	
+	// Remove a beer from location set
+	// Only remove from the set if it's not empty
+	public void removeBeer(String nBeer){
+		if(containsBeer(nBeer)) locBeers.remove(nBeer);
+		// else do nothing, already empty
+	}
+	
+	// Check if the beer is in the location Beer set. 
+	public boolean containsBeer(String nBeer){
+		boolean check = false;
+		if(locBeers.contains(nBeer)) check = true;
+		return check;
+	}
+	
+	// Set comment for given beer at location
+	public void setBeerComm(String nLoc, String nComment){
+		beerComments.put(nLoc,nComment);
 	}
 	
 	//compares two Locations based on their business name for ease of sorting

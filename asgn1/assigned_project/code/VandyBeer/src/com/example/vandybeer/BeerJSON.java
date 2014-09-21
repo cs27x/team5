@@ -6,9 +6,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import android.provider.ContactsContract.CommonDataKinds.Event;
 
@@ -26,88 +28,90 @@ public class BeerJSON {
 	//private final JavaType eventListType = objectMapper.getTypeFactory().constructCollectionType(List.class);
 	//private final BeerJSON value = objectMapper.readValue(new URL(BEER_PERMITS), BeerJSON.class);
 	
+	// Set JSON URL
 	private static final String BEER_PERMITS = "http://data.nashville.gov/resource/3wb6-xy3j.json";
 	// create object mapper instance
 	private final static ObjectMapper mapper = new ObjectMapper();
 	
 	public static void main(String[] args) throws Exception {
-		
-		
-		// Get contents of json as string using commons IO
-		String JsonStr = IOUtils.toString(new URL(BEER_PERMITS));
-		
-		//System.out.println(JsonStr); I have the JsonStr, now what?
-		
-		
-		
 		// Used to disable feature that causes mapper to break if it encounters an unknown property
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		
-		// Create list from JSON
-		List<BeerLocation> nav = mapper.readValue(JsonStr, mapper.getTypeFactory().constructCollectionType(List.class,
-				BeerLocation.class));
-		List<BeerLocation> nash = new ArrayList<BeerLocation>();
-		for(BeerLocation b : nav)
-		{
-			//System.out.println(b.getCity());
-			if(b.getCity() != null && b.getCity().equals("NASHVILLE")){ // not all beerlocations have a city
-				//nash.add(b);
-			}
-		}
+		// Retrieve Data
 		BeerJSON be = new BeerJSON();
-		List<BeerLocation> test = be.retrieveData();
-		for(BeerLocation b : test) {
+		List<BeerLocation> data = be.retrieveData();
+		for(BeerLocation b : data) {
 			//System.out.println(b);
 		}
 		
-		be.addComment("PIZZEREAL", "PBR", "taste like dogwater");
-		
-		// To add comments you do the following:
-		// Will add a function for this later, but this is the gist of it.
-		// You pass the function name of business, beer, and the comment the user wants to add
-		// Probably more efficient way that iterating through the locations, but
-		// hey we're doing MVP right now. 
-		for(BeerLocation b : nav)
-		{
-			if(b.getBusinessName() != null && b.getBusinessName().equals("PIZZEREAL"))
-			{
-				nash.add(b);
-				b.setComment("PBR", "Tastes like you expect. Mildly terrible");
-				b.setComment("bud light", "more like crud light");
-				//System.out.println(b.getComment("PBR"));
-				//System.out.println(b.getComment("bud light"));
+		BeerLocation help = new BeerLocation("terrible", null, 0, null, null, null, null, 0, 0);
+		System.out.println(help);
+		//be.addBeer("PIZZEREAL", "PBR", "taste like dogwater");
+		be.addBeerToLoc(data, "PIZZEREAL", "PBR");
+
+		Set<String> temp = new HashSet<String>();
+		for(BeerLocation b : data) {
+			if(b.getBusinessName() != null && b.getBusinessName().equals("PIZZEREAL")){
+				temp = b.getBeers();
+				//System.out.println(b.getBeers());
 			}
 		}
 		
-		// TODO figure out the wrapper for JSON if you think we need it.
-		// Right now BeerLocation obj seems useful for now. 
+		// Outputting what is in the set to make sure something is in the b locBeers value
+		Iterator it = temp.iterator();
+		while(it.hasNext()){
+			System.out.println((String) it.next());
+		}
+		
+		be.addBeerComm(data,"PIZZEREAL","This place is ok.");
 		
 	}
 	
+	// Retrieve data from the JSON url and throw it into a list.
 	public List<BeerLocation> retrieveData() throws Exception {
 		// Create list from JSON
 		return mapper.readValue(new URL(BEER_PERMITS), mapper.getTypeFactory().constructCollectionType(List.class,
 				BeerLocation.class));
 	}
 	
-	// don't like this function, should use setComment or something. sleep now.
-	public List<BeerLocation> addComment(String bizName, String beerName, String comment) throws Exception {
-		List<BeerLocation> loc = retrieveData();
-		List<BeerLocation> comm = new ArrayList<BeerLocation>();
-		
-		for(BeerLocation b : loc)
-		{
-			if(b.getBusinessName() != null && b.getBusinessName().equals(bizName))
-			{
-				comm.add(b);
-				b.setComment(beerName, comment);
-
+	// Add a beer to a location for some location in the beerLocation list
+	public void addBeerToLoc(List<BeerLocation> list, String nLoc, String nBeer) throws Exception{
+		for(BeerLocation b : list){
+			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)) {
+				// Add beer to b object if loc found
+				b.addBeer(nBeer);
+				System.out.println("Added " + nBeer + " to " + nLoc);
 			}
 		}
-		System.out.println(beerName + " @ " + bizName + " has been noted as: " + comment);
-		return comm;
 	}
 	
+	// Remove a beer from a location for some location in the beerLocation list
+	public void removeBeerfromLoc(List<BeerLocation> list, String nLoc, String nBeer) throws Exception{
+		for(BeerLocation b : list){
+			if(b.getBusinessName() != null && b.containsBeer(nBeer) && b.getBusinessName().equals(nLoc)) {
+				// Remove beer from b object if loc & beer found
+				b.removeBeer(nBeer);
+				System.out.println("Removed " + nBeer + " from " + nLoc);
+			}
+		}
+	}
+	
+	// don't like this function, should use setComment or something. sleep now.
+	// Adds beer comment to a given business
+	public void addBeerComm(List<BeerLocation> list, String nLoc, String nComment) throws Exception {
+		for(BeerLocation b : list)
+		{
+			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)) // see this bool a lot, might make function for it
+			{
+				b.setBeerComm(nLoc, nComment);
+				System.out.println(nLoc + ": " + nComment);
+			}
+		}
+	}
+	
+	// TODO Display beer/comments for a given location
+	// - 	figure out the wrapper for JSON if you think we need it.
+	// Right now BeerLocation obj seems useful for now. 
 
 }
 
