@@ -12,11 +12,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import android.provider.ContactsContract.CommonDataKinds.Event;
-
-import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JavaType;
@@ -32,6 +27,8 @@ public class BeerJSON {
 	private static final String BEER_PERMITS = "http://data.nashville.gov/resource/3wb6-xy3j.json";
 	// create object mapper instance
 	private final static ObjectMapper mapper = new ObjectMapper();
+	// List of closest locations given a user radius will be stored here:
+	private List<BeerLocation> distances;
 	
 	public static void main(String[] args) throws Exception {
 		// Used to disable feature that causes mapper to break if it encounters an unknown property
@@ -40,31 +37,10 @@ public class BeerJSON {
 		// Retrieve Data
 		BeerJSON be = new BeerJSON();
 		List<BeerLocation> data = be.retrieveData();
-		for(BeerLocation b : data) {
-			//System.out.println(b);
-		}
 		
-		BeerLocation help = new BeerLocation("terrible", null, 0, null, null, null, null, 0, 0);
-		System.out.println(help);
-		//be.addBeer("PIZZEREAL", "PBR", "taste like dogwater");
 		be.addBeerToLoc(data, "PIZZEREAL", "PBR");
-
-		Set<String> temp = new HashSet<String>();
-		for(BeerLocation b : data) {
-			if(b.getBusinessName() != null && b.getBusinessName().equals("PIZZEREAL")){
-				temp = b.getBeers();
-				//System.out.println(b.getBeers());
-			}
-		}
-		
-		// Outputting what is in the set to make sure something is in the b locBeers value
-		Iterator it = temp.iterator();
-		while(it.hasNext()){
-			System.out.println((String) it.next());
-		}
-		
+		be.addBeerToLoc(data, "PIZZEREAL", "Stella");
 		be.addBeerComm(data,"PIZZEREAL","This place is ok.");
-		
 		be.display(data, "PIZZEREAL");
 	}
 	
@@ -109,10 +85,6 @@ public class BeerJSON {
 			}
 		}
 	}
-	
-	// TODO Display beer/comments for a given location
-	// - 	figure out the wrapper for JSON if you think we need it.
-	// Right now BeerLocation obj seems useful for now. 
 
 	// Displays all info for a given location (that exists) 
 	public void display(List<BeerLocation> list, String nLoc){
@@ -121,6 +93,55 @@ public class BeerJSON {
 				System.out.println(b); // Print object first
 				b.printBeer();
 				b.printComments();
+			}
+		}
+	}
+	
+	// TODO 
+	// -	sort by closest places to current location (need GPS location of some sort).
+	// -	testing all functions
+	// - 	for me: jacoco
+	// - 	figure out the wrapper for JSON if you think we need it.
+	// Right now BeerLocation obj seems useful for now. 
+	
+	// Assuming we'll get the lat/lon from some GPS android plugin in terms of doubles
+	// This assumes that South lats are negative, and east longitudes are positive
+	// This distance function, and deg2rad/rad2deg are taken from geodatasource.com/
+	// Assumes userRadius is in miles, can be changed to be kilometers if needed
+	public void distance(List<BeerLocation> list, double lat1, double lon1, double userRadius){
+		double lat2 = 0.0;
+		double lon2 = 0.0;
+		
+		// get lat2/lon2 from iterating through data
+		for(BeerLocation b : list){
+			lat2 = b.getLatitude();
+			lon2 = b.getLongitude();
+			double theta = lon1 - lon2;
+			double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+			dist = Math.acos(dist);
+			dist = rad2deg(dist);
+			dist = dist * 60 * 1.1515;
+			if(dist < userRadius){
+				distances.add(b);
+			}
+		}
+	}
+	
+	// Helper functions for distance
+	public double deg2rad(double rad){
+		return (rad * 180 / Math.PI);
+	}
+	public double rad2deg(double deg){
+		return(deg * Math.PI / 180);
+	}
+	
+	// Print the X nearest locations from a given location
+	// Will have to implement X or just show them all at once. 
+	public void displaceDistance(List<BeerLocation> list, String nLoc){
+		for(BeerLocation b : list){
+			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)){
+				System.out.println("The nearest places to you are: ");
+				System.out.println(b);
 			}
 		}
 	}

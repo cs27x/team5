@@ -27,6 +27,8 @@ public class BeerLocation {
 	// private Map<String, String> beerComments = new HashMap<String,String>(); //<k,v> is <beer, comment>
 	private String comments;
 	
+	// Include list of beers here instead of a set?
+	
 	public BeerLocation(@JsonProperty("business_name") String businessName,
 			@JsonProperty("business_owner") String businessOwner,
 			@JsonProperty("zip") int zipCode,
@@ -174,9 +176,9 @@ public class BeerLocation {
 	public void printBeer(){
 		Set<String> temp = this.getBeers();
 		Iterator it = temp.iterator();
-		System.out.print("[ ");
+		if(it.hasNext()) System.out.print("[ " + it.next());
 		while(it.hasNext()){
-			System.out.print((String) it.next());
+			System.out.print(" | " + it.next());
 		}
 		System.out.println(" ]");
 	}
