@@ -41,10 +41,12 @@ public class BeerLocation {
 	}
 	
 	public BeerLocation(){
-		
+		businessName = "";	businessOwner = ""; zipCode = 0;
+		permitType = ""; address = ""; state = ""; city = "";
+		latitude = 0.0; longitude = 0.0;
 	}
 	public String toString() {
-		return this.businessName + " / " + this.businessOwner + " / " + this.address + " / " + this.state + ", " + this.city + " " + this.zipCode + " (" + this.latitude + " ," + this.longitude + ") ";
+		return this.businessName + " / " + this.businessOwner + " / " + this.address + " / " + this.city + ", " + this.state + " " + this.zipCode + " (" + this.latitude + " ," + this.longitude + ") ";
 	}
 	public String getBusinessName(){
 		return businessName;
@@ -92,9 +94,9 @@ public class BeerLocation {
 		String com = "No Comment.";
 		if(comments.containsKey(beerName))
 		{
-			com = (String)comments.get(beerName);
+			com = comments.get(beerName);
 		}
-		return com;
+		return beerName + ": " + com;
 	}
 	
 	public void setBusinessName(String name){
