@@ -32,6 +32,8 @@ public class BeerJSON {
 		// Get contents of json as string using commons IO
 		String JsonStr = IOUtils.toString(new URL(BEER_PERMITS));
 		
+		//System.out.println(JsonStr); I have the JsonStr, now what?
+		
 		// create object mapper instance
 		ObjectMapper mapper = new ObjectMapper();
 		
@@ -45,13 +47,9 @@ public class BeerJSON {
 		{
 			System.out.println(b);
 		}
-		BeerLocation b = mapper.readValue(JsonStr, BeerLocation.class);
+		//List<BeerLocation> nav = mapper.readValue(JsonStr, List.class);
 		
-		
-		    
-		
-		
-		System.out.println("here");
+		System.out.println();
 	}
 	
 
