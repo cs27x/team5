@@ -65,6 +65,7 @@ public class BeerJSON {
 		
 		be.addBeerComm(data,"PIZZEREAL","This place is ok.");
 		
+		be.display(data, "PIZZEREAL");
 	}
 	
 	// Retrieve data from the JSON url and throw it into a list.
@@ -103,7 +104,7 @@ public class BeerJSON {
 		{
 			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)) // see this bool a lot, might make function for it
 			{
-				b.setBeerComm(nLoc, nComment);
+				b.setBeerComm(nComment);
 				System.out.println(nLoc + ": " + nComment);
 			}
 		}
@@ -113,6 +114,16 @@ public class BeerJSON {
 	// - 	figure out the wrapper for JSON if you think we need it.
 	// Right now BeerLocation obj seems useful for now. 
 
+	// Displays all info for a given location (that exists) 
+	public void display(List<BeerLocation> list, String nLoc){
+		for(BeerLocation b : list){
+			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)){
+				System.out.println(b); // Print object first
+				b.printBeer();
+				b.printComments();
+			}
+		}
+	}
 }
 
 

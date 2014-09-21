@@ -2,6 +2,7 @@ package com.example.vandybeer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -23,7 +24,8 @@ public class BeerLocation {
 	// Storing the location's beers - want to store list of beers for a given location
 	private Set<String> locBeers = new HashSet<String>();
 	// Storing the location's beers + comments
-	private Map<String, String> beerComments = new HashMap<String,String>(); //<k,v> is <beer, comment>
+	// private Map<String, String> beerComments = new HashMap<String,String>(); //<k,v> is <beer, comment>
+	private String comments;
 	
 	public BeerLocation(@JsonProperty("business_name") String businessName,
 			@JsonProperty("business_owner") String businessOwner,
@@ -100,6 +102,9 @@ public class BeerLocation {
 		return locBeers;
 	}
 	
+	public String getComments(){
+		return comments;
+	}
 	public void setBusinessName(String name){
 		businessName = name;
 	}
@@ -161,8 +166,23 @@ public class BeerLocation {
 	}
 	
 	// Set comment for given beer at location
-	public void setBeerComm(String nLoc, String nComment){
-		beerComments.put(nLoc,nComment);
+	public void setBeerComm(String nComment){
+		comments = nComment;
+	}
+	
+	/* ---  Display functions  --- */
+	public void printBeer(){
+		Set<String> temp = this.getBeers();
+		Iterator it = temp.iterator();
+		System.out.print("[ ");
+		while(it.hasNext()){
+			System.out.print((String) it.next());
+		}
+		System.out.println(" ]");
+	}
+	
+	public void printComments(){
+		System.out.println("Comments: " + comments);
 	}
 	
 	//compares two Locations based on their business name for ease of sorting
