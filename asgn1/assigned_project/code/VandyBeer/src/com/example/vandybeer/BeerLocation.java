@@ -14,8 +14,7 @@ public class BeerLocation {
 	private String businessOwner;
 	private String address;
 	private String state;
-	private String permitType;  //0 for off-sale, 1 for on-sale, 2 for both
-	private int permit;
+	private String permitType; 
 	private String city;
 	private int zipCode;
 	private double latitude, longitude;
@@ -80,9 +79,8 @@ public class BeerLocation {
 		return address;
 	}
 	
-	public int getPermitType(){
-		this.setPermitType(permitType);
-		return permit;
+	public String getPermitType(){
+		return permitType;
 	}
 	
 	public String getCity(){
@@ -131,12 +129,7 @@ public class BeerLocation {
 	}
 	
 	public void setPermitType(String nPermitType){
-		if(nPermitType.equals("ON-SALE BEER"))
-			permit = 1;
-		else if(nPermitType.equals("OFF-SALE BEER"))
-			permit = 0;
-		else
-			permit = 2;
+		permitType = nPermitType;
 	}
 	
 	public void setCity(String nCity){
