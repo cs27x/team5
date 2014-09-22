@@ -13,16 +13,26 @@ public class BeerLocationInfoActivity extends Activity {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.beerlocationinfo);
 		TextView businessName = (TextView)findViewById(R.id.businessName); 
-		//TODO Add all textviews
+		TextView businessOwner = (TextView)findViewById(R.id.businessOwner);
+		TextView address = (TextView)findViewById(R.id.address);
+		TextView city = (TextView)findViewById(R.id.city);
+		TextView state = (TextView)findViewById(R.id.state);
+		TextView zipCode = (TextView)findViewById(R.id.zipCode);
+		TextView permitType = (TextView)findViewById(R.id.permitType);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 		    String value = extras.getString("BeerLocation");
 		    beerlocation = new BeerLocation(value);
-		    businessName.setText(value);
+		    
 		}
-		
-		//businessName.setText(beerlocation.getBusinessName());
-		//TODO ADD all information in text
+		/*businessName.setText(beerlocation.getBusinessName());
+		businessOwner.setText(beerlocation.getBusinessOwner());
+		address.setText(beerlocation.getAddress());
+		city.setText(beerlocation.getCity());
+		state.setText(beerlocation.getState());
+		zipCode.setText(beerlocation.getZipCode());
+		permitType.setText(beerlocation.getPermitType());
+		*/
 	}
 
 }

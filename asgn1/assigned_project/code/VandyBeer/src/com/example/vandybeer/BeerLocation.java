@@ -1,6 +1,8 @@
 package com.example.vandybeer;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,9 +20,8 @@ public class BeerLocation {
 	private int zipCode;
 	private double latitude, longitude;
 	// Storing the location's beers - want to store list of beers for a given location
-	private Set<String> locBeers = new HashSet<String>();
+	private List<Beer> locBeers = new ArrayList<Beer>();
 	// Storing the location's beers + comments
-	// private Map<String, String> beerComments = new HashMap<String,String>(); //<k,v> is <beer, comment>
 	private String comments;
 	
 	// Include list of beers here instead of a set?
@@ -45,17 +46,32 @@ public class BeerLocation {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
+	
 	public BeerLocation(String beerObject){
 		//TODO convert beer object from string
+		String[] array = beerObject.split("\t");
+		this.businessName = array[0];
+		this.businessOwner = array[1];
+		this.address = array[2];
+		this.city = array[3];
+		this.state = array[4];
+		this.zipCode = Integer.parseInt(array[5]);
+		this.permitType = array[6];
+		this.latitude = Double.parseDouble(array[7]);
+		this.longitude = Double.parseDouble(array[8]);
 	}
+	
 	public BeerLocation(){
 		businessName = "";	businessOwner = ""; zipCode = 0;
 		permitType = ""; address = ""; state = ""; city = "";
 		latitude = 0.0; longitude = 0.0;
 	}
+	
+	@Override
 	public String toString() {
-		return this.businessName + " / " + this.businessOwner + " / " + this.address + " / " + this.city + ", " + this.state + " " + this.zipCode + " (" + this.latitude + " ," + this.longitude + ") ";
+		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude;
 	}
+	
 	public String getBusinessName(){
 		return businessName;
 	}
@@ -98,10 +114,11 @@ public class BeerLocation {
 	} 
 	
 	// Get beer list from location
-	public Set<String> getBeers(){
+	public List<Beer> getBeers(){
 		return locBeers;
 	}
 	
+	// Get comments for the location
 	public String getComments(){
 		return comments;
 	}
@@ -147,42 +164,23 @@ public class BeerLocation {
 	}
 	
 	// Add beer to location set
-	public void addBeer(String nBeer){
+	public void addBeer(Beer nBeer){
 		locBeers.add(nBeer);
 	}
 	
 	// Remove a beer from location set
 	// Only remove from the set if it's not empty
-	public void removeBeer(String nBeer){
-		if(containsBeer(nBeer)) locBeers.remove(nBeer);
+	public void removeBeer(int index){
+		locBeers.remove(index);
+		//if(containsBeer(nBeer)) locBeers.remove(nBeer);
+		
+		// TODO works with STRING BEER
 		// else do nothing, already empty
 	}
 	
-	// Check if the beer is in the location Beer set. 
-	public boolean containsBeer(String nBeer){
-		boolean check = false;
-		if(locBeers.contains(nBeer)) check = true;
-		return check;
-	}
-	
 	// Set comment for given beer at location
-	public void setBeerComm(String nComment){
+	public void setLocComments(String nComment){
 		comments = nComment;
-	}
-	
-	/* ---  Display functions  --- */
-	public void printBeer(){
-		Set<String> temp = this.getBeers();
-		Iterator<String> it = temp.iterator();
-		if(it.hasNext()) System.out.print("[ " + it.next());
-		while(it.hasNext()){
-			System.out.print(" | " + it.next());
-		}
-		System.out.println(" ]");
-	}
-	
-	public void printComments(){
-		System.out.println("Comments: " + comments);
 	}
 	
 	//compares two Locations based on their business name for ease of sorting

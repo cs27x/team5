@@ -55,9 +55,10 @@ public class BeerJSON {
 		return mapper.readValue(new URL(BEER_PERMITS), mapper.getTypeFactory().constructCollectionType(List.class,
 				BeerLocation.class));
 	}
-	
+
+/*
 	// Add a beer to a location for some location in the beerLocation list
-	public void addBeerToLoc(List<BeerLocation> list, String nLoc, String nBeer) throws Exception{
+	public void addBeerToLoc(List<BeerLocation> list, String nLoc, Beer nBeer) throws Exception{
 		for(BeerLocation b : list){
 			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)) {
 				// Add beer to b object if loc found
@@ -68,7 +69,7 @@ public class BeerJSON {
 	}
 	
 	// Remove a beer from a location for some location in the beerLocation list
-	public void removeBeerfromLoc(List<BeerLocation> list, String nLoc, String nBeer) throws Exception{
+	public void removeBeerfromLoc(List<BeerLocation> list, String nLoc, Beer nBeer) throws Exception{
 		for(BeerLocation b : list){
 			if(b.getBusinessName() != null && b.containsBeer(nBeer) && b.getBusinessName().equals(nLoc)) {
 				// Remove beer from b object if loc & beer found
@@ -85,23 +86,12 @@ public class BeerJSON {
 		{
 			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)) // see this bool a lot, might make function for it
 			{
-				b.setBeerComm(nComment);
+				b.setLocComments(nComment);
 				System.out.println(nLoc + ": " + nComment);
 			}
 		}
 	}
-
-	// Displays all info for a given location (that exists) 
-	public void display(List<BeerLocation> list, String nLoc){
-		for(BeerLocation b : list){
-			if(b.getBusinessName() != null && b.getBusinessName().equals(nLoc)){
-				System.out.println(b); // Print object first
-				b.printBeer();
-				b.printComments();
-			}
-		}
-	}
-	
+*/
 	// TODO 
 	// -	sort by closest places to current location (need GPS location of some sort).
 	// -	testing all functions
@@ -150,6 +140,7 @@ public class BeerJSON {
 			}
 		}
 	}
+	
 	
 	// Helper function for common location check
 	public boolean businessExist(BeerLocation b, String nLoc) {
