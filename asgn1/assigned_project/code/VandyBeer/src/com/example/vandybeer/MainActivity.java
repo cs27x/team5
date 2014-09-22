@@ -2,6 +2,7 @@ package com.example.vandybeer;
 
 import java.util.ArrayList;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,11 +18,18 @@ public class MainActivity extends ActionBarActivity {
 	private ArrayList<BeerLocation> beerLocationList;
 	ArrayAdapter<String> listAdapter;
 	ListView listView;
+	ProgressDialog dialog;
 	
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		beerLocationList = new ArrayList<BeerLocation>();
+		
+		dialog = ProgressDialog.show(MainActivity.this, "", "Getting Beer Locations", true);
+		dialog.show();
+		LicenseDownloadTask downloadTask = new LicenseDownloadTask();
+		downloadTask.execute(this);
+		
+		/*beerLocationList = new ArrayList<BeerLocation>();
 		listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		listAdapter.add("This is a test");
 		listView = (ListView)findViewById(R.id.listView1); 
@@ -35,7 +43,26 @@ public class MainActivity extends ActionBarActivity {
 
 				startActivity(intent);
 			}
-		}); 
+		}); */
+	}
+	
+	public void displayLicenses(String licenseString){
+		beerLocationList = new ArrayList<BeerLocation>();
+		listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+		listAdapter.add(licenseString.substring(0, 100));
+		listView = (ListView)findViewById(R.id.listView1); 
+		
+		listView.setAdapter(listAdapter);
+		// ListView Item Click Listener
+        listView.setOnItemClickListener(new OnItemClickListener() {
+        	@Override
+			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+				Intent intent = new Intent(getApplicationContext(), BeerLocationInfoActivity.class);
+
+				startActivity(intent);
+			}
+		});
+		dialog.dismiss();
 	}
 
 	@Override
