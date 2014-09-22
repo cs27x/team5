@@ -1,10 +1,6 @@
 package com.example.vandybeer;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -49,7 +45,9 @@ public class BeerLocation {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
-	
+	public BeerLocation(String beerObject){
+		//TODO convert beer object from string
+	}
 	public BeerLocation(){
 		businessName = "";	businessOwner = ""; zipCode = 0;
 		permitType = ""; address = ""; state = ""; city = "";
@@ -175,7 +173,7 @@ public class BeerLocation {
 	/* ---  Display functions  --- */
 	public void printBeer(){
 		Set<String> temp = this.getBeers();
-		Iterator it = temp.iterator();
+		Iterator<String> it = temp.iterator();
 		if(it.hasNext()) System.out.print("[ " + it.next());
 		while(it.hasNext()){
 			System.out.print(" | " + it.next());

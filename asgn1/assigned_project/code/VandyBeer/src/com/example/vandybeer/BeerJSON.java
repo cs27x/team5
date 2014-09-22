@@ -30,18 +30,23 @@ public class BeerJSON {
 	// List of closest locations given a user radius will be stored here:
 	private List<BeerLocation> distances;
 	
-	public static void main(String[] args) throws Exception {
+	public BeerJSON() throws Exception{
 		// Used to disable feature that causes mapper to break if it encounters an unknown property
 		mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		
 		// Retrieve Data
-		BeerJSON be = new BeerJSON();
-		List<BeerLocation> data = be.retrieveData();
+		//BeerJSON be = new BeerJSON();
 		
-		be.addBeerToLoc(data, "PIZZEREAL", "PBR");
-		be.addBeerToLoc(data, "PIZZEREAL", "Stella");
-		be.addBeerComm(data,"PIZZEREAL","This place is ok.");
-		be.display(data, "PIZZEREAL");
+		//be.addBeerToLoc(data, "PIZZEREAL", "PBR");
+		//be.addBeerToLoc(data, "PIZZEREAL", "Stella");
+		//be.addBeerComm(data,"PIZZEREAL","This place is ok.");
+		//be.display(data, "PIZZEREAL");
+	}
+	
+	public ArrayList<BeerLocation> run() throws Exception{
+		
+		return (ArrayList<BeerLocation>) retrieveData();
+
 	}
 	
 	// Retrieve data from the JSON url and throw it into a list.
@@ -145,7 +150,9 @@ public class BeerJSON {
 			}
 		}
 	}
+	
+	// Helper function for common location check
+	public boolean businessExist(BeerLocation b, String nLoc) {
+		return(b.getBusinessName() != null && b.getBusinessName().equals(nLoc));
+	}
 }
-
-
-
