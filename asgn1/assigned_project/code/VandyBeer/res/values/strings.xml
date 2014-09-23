@@ -4,5 +4,9 @@
     <string name="app_name">VandyBeer</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="sort_a_to_z">A-Z</string>
+    <string name="sort_closest">Sort Closest</string>
+    <string name="location_type">Location Type</string>
 
 </resources>

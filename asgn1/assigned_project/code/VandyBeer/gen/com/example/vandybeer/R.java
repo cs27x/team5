@@ -1118,6 +1118,7 @@ containing a value of this type.
         public static final int listMode=0x7f050001;
         public static final int listView1=0x7f05003c;
         public static final int list_item=0x7f050029;
+        public static final int location_type=0x7f050048;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
@@ -1255,6 +1256,10 @@ containing a value of this type.
         public static final int action_settings=0x7f0a000f;
         public static final int app_name=0x7f0a000d;
         public static final int hello_world=0x7f0a000e;
+        public static final int location_type=0x7f0a0013;
+        public static final int search=0x7f0a0010;
+        public static final int sort_a_to_z=0x7f0a0011;
+        public static final int sort_closest=0x7f0a0012;
     }
     public static final class style {
         /** 

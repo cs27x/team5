@@ -2,7 +2,9 @@ package com.example.vandybeer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ public class BeerLocationInfoActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 		setContentView(R.layout.beerlocationinfo);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		TextView businessName = (TextView)findViewById(R.id.businessName); 
 		TextView businessOwner = (TextView)findViewById(R.id.businessOwner);
 		TextView address = (TextView)findViewById(R.id.address);
@@ -47,6 +50,17 @@ public class BeerLocationInfoActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.beer_menu, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	        NavUtils.navigateUpFromSameTask(this);
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 
 }

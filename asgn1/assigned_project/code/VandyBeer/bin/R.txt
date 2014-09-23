@@ -273,6 +273,7 @@ int id image 0x7f050027
 int id listMode 0x7f050001
 int id listView1 0x7f05003c
 int id list_item 0x7f050029
+int id location_type 0x7f050048
 int id middle 0x7f050012
 int id never 0x7f050009
 int id none 0x7f050010
@@ -353,6 +354,10 @@ int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000f
 int string app_name 0x7f0a000d
 int string hello_world 0x7f0a000e
+int string location_type 0x7f0a0013
+int string search 0x7f0a0010
+int string sort_a_to_z 0x7f0a0011
+int string sort_closest 0x7f0a0012
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063
