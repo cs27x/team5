@@ -46,6 +46,7 @@ public class BeerLocation {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.distFromCur = 0.0;
+		this.comments = "";
 	}
 	
 	public BeerLocation(String beerObject){
@@ -61,12 +62,13 @@ public class BeerLocation {
 		this.latitude = Double.parseDouble(array[7]);
 		this.longitude = Double.parseDouble(array[8]);
 		this.distFromCur = 0.0;
+		this.comments = "";
 	}
 	
 	public BeerLocation(){
 		businessName = "";	businessOwner = ""; zipCode = 0;
 		permitType = ""; address = ""; state = ""; city = "";
-		latitude = 0.0; longitude = 0.0; distFromCur = 0.0;
+		latitude = 0.0; longitude = 0.0; distFromCur = 0.0; comments = "";
 	}
 	
 	@Override
