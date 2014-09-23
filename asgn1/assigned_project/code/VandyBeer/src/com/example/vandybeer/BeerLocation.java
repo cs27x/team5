@@ -18,6 +18,7 @@ public class BeerLocation {
 	private String city;
 	private int zipCode;
 	private double latitude, longitude;
+	private double distFromCur;
 	// Storing the location's beers - want to store list of beers for a given location
 	private List<Beer> locBeers = new ArrayList<Beer>();
 	// Storing the location's beers + comments
@@ -44,6 +45,7 @@ public class BeerLocation {
 		this.city = city;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.distFromCur = 0.0;
 	}
 	
 	public BeerLocation(String beerObject){
@@ -58,12 +60,13 @@ public class BeerLocation {
 		this.permitType = array[6];
 		this.latitude = Double.parseDouble(array[7]);
 		this.longitude = Double.parseDouble(array[8]);
+		this.distFromCur = 0.0;
 	}
 	
 	public BeerLocation(){
 		businessName = "";	businessOwner = ""; zipCode = 0;
 		permitType = ""; address = ""; state = ""; city = "";
-		latitude = 0.0; longitude = 0.0;
+		latitude = 0.0; longitude = 0.0; distFromCur = 0.0;
 	}
 	
 	@Override
@@ -111,6 +114,10 @@ public class BeerLocation {
 		return state;
 	} 
 	
+	public double getDistance(){
+		return distFromCur;
+	}
+	
 	// Get beer list from location
 	public List<Beer> getBeers(){
 		return locBeers;
@@ -156,6 +163,9 @@ public class BeerLocation {
 		state = nState;
 	}
 	
+	public void setDistance(double dist){
+		distFromCur = dist;
+	}
 	// Add beer to location set
 	public void addBeer(Beer nBeer){
 		locBeers.add(nBeer);
@@ -182,7 +192,17 @@ public class BeerLocation {
 		return businessName.compareTo(l.businessName);
 	}
 	
+	/*//compares two BeerLocations based on beer permit
+	public int comparePermitType(BeerLocation l){
+		if(l.getPermitType().equals("ON/OFF-SALE BEER")) //ensures that on/off sale permits are seen first
+			return -1;
+		else{
+			return 
+		}
+	}*/
 	//to be implemented
+	
+	
 	public int compareDistance(BeerLocation l){
 		return 0;
 	}
