@@ -54,7 +54,7 @@ public class BeerLocationTests extends TestCase {
 	
 	@Test
 	public void testJSONConstructor(){
-		 JsonBuilderFactory factory = Json.createBuilderFactory(config);
+		/* JsonBuilderFactory factory = Json.createBuilderFactory(config);
 		 JsonObject value = factory.createObjectBuilder()
 		     .add("firstName", "John")
 		     .add("lastName", "Smith")
@@ -71,7 +71,7 @@ public class BeerLocationTests extends TestCase {
 		         .add(factory.createObjectBuilder()
 		             .add("type", "fax")
 		             .add("number", "646 555-4567")))
-		     .build();
+		     .build();*/
 		 
 	}
 	

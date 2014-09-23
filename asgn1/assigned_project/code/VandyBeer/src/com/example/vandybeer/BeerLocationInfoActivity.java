@@ -2,11 +2,15 @@ package com.example.vandybeer;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class BeerLocationInfoActivity extends Activity {
 	
 	BeerLocation beerlocation;
+	ArrayAdapter<String> listAdapter;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -19,20 +23,30 @@ public class BeerLocationInfoActivity extends Activity {
 		TextView state = (TextView)findViewById(R.id.state);
 		TextView zipCode = (TextView)findViewById(R.id.zipCode);
 		TextView permitType = (TextView)findViewById(R.id.permitType);
+		ListView listview = (ListView)findViewById(R.id.listView1);
+		listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 		    String value = extras.getString("BeerLocation");
 		    beerlocation = new BeerLocation(value);
 		    
 		}
-		/*businessName.setText(beerlocation.getBusinessName());
+		businessName.setText(beerlocation.getBusinessName());
 		businessOwner.setText(beerlocation.getBusinessOwner());
 		address.setText(beerlocation.getAddress());
 		city.setText(beerlocation.getCity());
 		state.setText(beerlocation.getState());
-		zipCode.setText(beerlocation.getZipCode());
+		zipCode.setText("" + beerlocation.getZipCode());
 		permitType.setText(beerlocation.getPermitType());
-		*/
+		listview.setAdapter(listAdapter);
+		
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.beer_menu, menu);
+		return true;
 	}
 
 }

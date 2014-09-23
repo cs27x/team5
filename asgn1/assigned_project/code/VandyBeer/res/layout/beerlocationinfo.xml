@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,67 +10,63 @@
 
     <TextView
         android:id="@+id/businessName"
-		android:layout_alignParentTop = "true"    
-		android:layout_width="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginRight="0dp"
-        android:layout_marginTop="0dp"
-        />
+        android:layout_marginTop="0dp" 
+        android:text="BusinessName" />
 
     <TextView
         android:id="@+id/businessOwner"
-        android:layout_below='@+id/businessName'
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="59dp"
-			/>
-    <TextView
-        android:id="@+id/address"
-        android:layout_below='@+id/businessName'
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-	 />
+        android:layout_below="@+id/businessName"
+        android:text="OWNER" />
 
     <TextView
-        android:id="@+id/state"
-        android:layout_below='@+id/address'  
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/businessOwner"
+        android:text="ADDRESS" />
+    
+   <TextView
+        android:id="@+id/city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/address" 
+        android:text="CITY" />
+   
+    <TextView
+        android:id="@+id/zipCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/city" 
+        android:text="ZIPCODE" />
+    <TextView
+        android:id="@+id/state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/zipCode" 
+        android:text="STate" />
 
     <TextView
         android:id="@+id/permitType"
-                android:layout_below='@+id/state'
-        
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
-
-    <TextView
-        android:id="@+id/city"
-                android:layout_below='@+id/permitType'
-        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/state" 
+        android:text="permiteType" />
     
-    <TextView
-        android:id="@+id/zipCode"
-                android:layout_below='@+id/city'
-        
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
 
     <ListView
         android:id="@+id/listView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below='@+id/zipCode'
         android:layout_alignParentBottom="false"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" >
-
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/permitType" >
     </ListView>
+
 </RelativeLayout>
