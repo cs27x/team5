@@ -5,6 +5,8 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 import com.example.vandybeer.BeerLocation;
+import com.example.vandybeer.Beer;
+import java.util.ArrayList;
 
 
 public class BeerLocationTests extends TestCase {
@@ -54,24 +56,20 @@ public class BeerLocationTests extends TestCase {
 	
 	@Test
 	public void testJSONConstructor(){
-		 JsonBuilderFactory factory = Json.createBuilderFactory(config);
-		 JsonObject value = factory.createObjectBuilder()
-		     .add("firstName", "John")
-		     .add("lastName", "Smith")
-		     .add("age", 25)
-		     .add("address", factory.createObjectBuilder()
-		         .add("streetAddress", "21 2nd Street")
-		         .add("city", "New York")
-		         .add("state", "NY")
-		         .add("postalCode", "10021"))
-		     .add("phoneNumber", factory.createArrayBuilder()
-		         .add(factory.createObjectBuilder()
-		             .add("type", "home")
-		             .add("number", "212 555-1234"))
-		         .add(factory.createObjectBuilder()
-		             .add("type", "fax")
-		             .add("number", "646 555-4567")))
-		     .build();
+		String address = "AABBCC"; String state = "TN";
+		String busName = "Mapco"; String busOwn = "Kathy"; String city = "Nash"; 
+		int zip = 37235; String permitType = "ON-SALE BEER"; double latitude = 37;
+		double longitude = -65.5;
+		BeerLocation loc = new BeerLocation(busName, busOwn, zip, permitType, address, state, city, latitude, longitude);
+		assertTrue(address.equals(loc.getAddress()));
+		assertTrue(busName.equals(loc.getBusinessName()));
+		assertTrue(busOwn.equals(loc.getBusinessOwner()));
+		assertTrue(state.equals(loc.getState()));
+		assertTrue(city.equals(loc.getCity()));
+		assertTrue(permitType.equals(loc.getPermitType()));
+		assertTrue(loc.getLatitude() == latitude);
+		assertTrue(loc.getLongitude() == longitude);
+		assertTrue(loc.getZipCode() == zip);
 		 
 	}
 	
@@ -122,5 +120,32 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(aLoc.compareBusinessName(cLoc) < 0);
 	}
 	
-	
+	@Test
+	public void testOtherAccessors(){
+		BeerLocation loc = new BeerLocation();
+		Beer bud = new Beer("Bud Light");
+		Beer pbr = new Beer("Pabst Blue Ribbon");
+		Beer red = new Beer("Red Stripe");
+		assertTrue(loc.getBeers().isEmpty());
+		loc.addBeer(bud);
+		loc.addBeer(pbr);
+		loc.addBeer(red);
+		
+		assertTrue(loc.getBeers().size() == 3);
+		assertTrue(loc.getBeers().contains(bud));
+		assertTrue(loc.getBeers().contains(pbr));
+		assertTrue(loc.getBeers().contains(red));
+		
+		loc.removeBeer(0);
+		assertTrue(loc.getBeers().size() == 2);
+		loc.removeBeer(0); loc.removeBeer(0);
+		assertTrue(loc.getBeers().isEmpty());
+		
+		assertTrue(loc.getComments().equals(""));
+		loc.setLocComments("Good beer, bad food");
+		assertTrue(loc.getComments().equals("Good beer, bad food"));
+		loc.setLocComments("Music on Fridays");
+		assertTrue(loc.getComments().equals("Music on Fridays"));
+		
+	}
 }
