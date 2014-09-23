@@ -12,6 +12,7 @@ public class Beer {
 	
 	public Beer(String name){
 		mName = name;
+		mComments = "";
 	}
 	
 	//adds a comment about the beer

@@ -6,5 +6,5 @@
     <item android:id="@+id/add_beer"
           android:icon="@drawable/ic_launcher"
           android:showAsAction="never"
-    	  android:title="addBeer"/>
+    	  android:title="@string/add_beer"/>
 </menu>
