@@ -14,6 +14,10 @@ public class Beer {
 		mName = name;
 	}
 	
+	public String toString() {
+		return "<" + this.mName + "\t" + this.mComments + ">";
+	}
+	
 	//adds a comment about the beer
 	public void setComment(String comment){
 		mComments = comment;
