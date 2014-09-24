@@ -5,6 +5,8 @@ import org.junit.Test;
 import junit.framework.TestCase;
 
 import com.example.vandybeer.BeerLocation;
+import com.example.vandybeer.Beer;
+import java.util.ArrayList;
 
 
 public class BeerLocationTests extends TestCase {
@@ -27,7 +29,7 @@ public class BeerLocationTests extends TestCase {
 	
 	@Test
 	public void testStringConstructor(){
-		BeerLocation loc = new BeerLocation("");
+		/*BeerLocation loc = new BeerLocation("");
 		assertTrue(loc.getAddress().equals(""));
 		assertTrue(loc.getBusinessName().equals(""));
 		assertTrue(loc.getBusinessOwner().equals(""));
@@ -37,7 +39,7 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc.getPermitType().equals(""));
 		assertTrue(loc.getLatitude() == 0);
 		assertTrue(loc.getLongitude() == 0);
-		assertTrue(loc.getZipCode() == 0);
+		assertTrue(loc.getZipCode() == 0);*/
 		
 		String construct = "Name\tOwner Last\t2301 Vanderbilt Place\tcity\tTN\t55566\tON-SALE BEER\t33.45566\t-43.215";
 		BeerLocation loc2 = new BeerLocation(construct);
@@ -72,6 +74,21 @@ public class BeerLocationTests extends TestCase {
 		             .add("type", "fax")
 		             .add("number", "646 555-4567")))
 		     .build();*/
+		
+		String address = "AABBCC"; String state = "TN";
+		String busName = "Mapco"; String busOwn = "Kathy"; String city = "Nash"; 
+		int zip = 37235; String permitType = "ON-SALE BEER"; double latitude = 37;
+		double longitude = -65.5;
+		BeerLocation loc = new BeerLocation(busName, busOwn, zip, permitType, address, state, city, latitude, longitude);
+		assertTrue(address.equals(loc.getAddress()));
+		assertTrue(busName.equals(loc.getBusinessName()));
+		assertTrue(busOwn.equals(loc.getBusinessOwner()));
+		assertTrue(state.equals(loc.getState()));
+		assertTrue(city.equals(loc.getCity()));
+		assertTrue(permitType.equals(loc.getPermitType()));
+		assertTrue(loc.getLatitude() == latitude);
+		assertTrue(loc.getLongitude() == longitude);
+		assertTrue(loc.getZipCode() == zip);
 		 
 	}
 	
@@ -122,5 +139,32 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(aLoc.compareBusinessName(cLoc) < 0);
 	}
 	
-	
+	@Test
+	public void testOtherAccessors(){
+		BeerLocation loc = new BeerLocation();
+		Beer bud = new Beer("Bud Light");
+		Beer pbr = new Beer("Pabst Blue Ribbon");
+		Beer red = new Beer("Red Stripe");
+		assertTrue(loc.getBeers().isEmpty());
+		loc.addBeer(bud);
+		loc.addBeer(pbr);
+		loc.addBeer(red);
+		
+		assertTrue(loc.getBeers().size() == 3);
+		assertTrue(loc.getBeers().contains(bud));
+		assertTrue(loc.getBeers().contains(pbr));
+		assertTrue(loc.getBeers().contains(red));
+		
+		loc.removeBeer(0);
+		assertTrue(loc.getBeers().size() == 2);
+		loc.removeBeer(0); loc.removeBeer(0);
+		assertTrue(loc.getBeers().isEmpty());
+		
+		assertTrue(loc.getComments().equals(""));
+		loc.setLocComments("Good beer, bad food");
+		assertTrue(loc.getComments().equals("Good beer, bad food"));
+		loc.setLocComments("Music on Fridays");
+		assertTrue(loc.getComments().equals("Music on Fridays"));
+		
+	}
 }
