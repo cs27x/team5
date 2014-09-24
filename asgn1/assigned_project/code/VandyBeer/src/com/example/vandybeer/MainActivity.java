@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import tests.BeerLocation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -129,50 +130,64 @@ public class MainActivity extends ActionBarActivity {
 	}
 	
 	// -	sort by closest places to current location (need GPS location of some sort).
-		// -	testing all functions
-		// - 	for me: jacoco
-		// - 	figure out the wrapper for JSON if you think we need it.
-		// Right now BeerLocation obj seems useful for now. 
+	// -	testing all functions
+	// - 	for me: jacoco
+	// - 	figure out the wrapper for JSON if you think we need it.
+	// Right now BeerLocation obj seems useful for now. 
+	
+	// Assuming we'll get the lat/lon from some GPS android plugin in terms of doubles
+	// This assumes that South lats are negative, and east longitudes are positive
+	// This distance function, and deg2rad/rad2deg are taken from geodatasource.com/
+	// Assumes userRadius is in miles, can be changed to be kilometers if needed
+	public ArrayList<BeerLocation> distance(List<BeerLocation> list, double lat1, double lon1, double userRadius){
 		
-		// Assuming we'll get the lat/lon from some GPS android plugin in terms of doubles
-		// This assumes that South lats are negative, and east longitudes are positive
-		// This distance function, and deg2rad/rad2deg are taken from geodatasource.com/
-		// Assumes userRadius is in miles, can be changed to be kilometers if needed
-		public ArrayList<BeerLocation> distance(List<BeerLocation> list, double lat1, double lon1, double userRadius){
-			ArrayList<BeerLocation> retList = new ArrayList<BeerLocation>();
-			// get lat2/lon2 from iterating through data
-			for(BeerLocation b : list){
-				double dist = calculateDist(lat1, lon1, b.getLatitude(), b.getLongitude());
-				b.setDistance(dist);
-				if(dist < userRadius){
-					for(int i = 0; i<retList.size(); i++){
-						if(dist < retList.get(i).getDistance()){
-							retList.add(i, b);
-							break;
-						} //if
-						else if(i == (retList.size() -1)){
-							retList.add(b);
-						} //else if
-					} //for
-				} //if(dist<radius)
-			} //for BeerLocation b
-			return retList;
-		}
+		ArrayList<BeerLocation> retList = new ArrayList<BeerLocation>();
+		for(BeerLocation b : list){
+			
+			double dist = calculateDist(lat1, lon1, b.getLatitude(), b.getLongitude()); //calculates distance
+			b.setDistance(dist); //assigns it to the BeerLocations
+			
+			if(dist < userRadius){  //filters by distance given
+				if(retList.isEmpty()){ //makes a first element
+					retList.add(b);
+				}
+				else{
+					insertSorted(retList, b); //maintains sorted list without extra iteration
+				}
+			} //if(dist<radius)
+		} //for BeerLocation b
+		return retList;
+	}
+	
+	//helper function that inserts BeerLocations into list in sorted order by distance
+	public void insertSorted(ArrayList<BeerLocation> list, BeerLocation b){
+		for(int i = 0; i<list.size(); i++){ //this is to maintain a sorted list
+			if(b.getDistance() < list.get(i).getDistance()){
+				list.add(i, b);
+				return;
+			} //if
+		} //for
+		list.add(b);
+	}
+	
+	//calculates distance between ordered pairs of latitude and longitude by the haversine formula
+	public double calculateDist(double lat1, double lon1, double lat2, double lon2){
+		double dLon = deg2rad(lon2-lon1);
+		double dLat = deg2rad(lat2-lat1);
+		double a = Math.pow(Math.sin(dLat/2), 2)+ Math.cos(deg2rad(lat1))*Math.cos(deg2rad(lat2))*Math.pow(Math.sin(dLon/2), 2);
+		double c = 2* Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		double EarthRadius = 3959; //miles
+		double dist = EarthRadius * c;
+		//Haversine formula outlined at http://andrew.hedges.name/experiments/haversine/
 		
-		public double calculateDist(double lat1, double lon1, double lat2, double lon2){
-			double theta = lon1 - lon2;
-			double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
-			dist = Math.acos(dist);
-			dist = rad2deg(dist);
-			dist = dist * 60 * 1.1515;
-			return dist;
-		}
-		
-		// Helper functions for distance
-		public double deg2rad(double rad){
-			return (rad * 180 / Math.PI);
-		}
-		public double rad2deg(double deg){
-			return(deg * Math.PI / 180);
-		}
+		return dist;
+	}
+				
+	// Helper functions for distance
+	public double deg2rad(double deg){
+		return deg*Math.PI/180;
+	}
+	public double rad2deg(double rad){
+		return(rad * 180/Math.PI);
+	}
 }
