@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import com.example.vandybeer.BeerLocation;
 import com.example.vandybeer.Beer;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 
 public class BeerLocationTests extends TestCase {
