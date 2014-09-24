@@ -41,6 +41,7 @@ public class MainActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+
 		beerLocationList = new ArrayList<BeerLocation>();
 		currentBeerLocationList = new ArrayList<BeerLocation>();
 
@@ -280,7 +281,7 @@ public class MainActivity extends ActionBarActivity {
 	public double rad2deg(double deg) {
 		return (deg * Math.PI / 180);
 	}
-	
+
 	private void search() {
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -298,7 +299,8 @@ public class MainActivity extends ActionBarActivity {
 				String input = editText.getText().toString();
 
 				for (BeerLocation b : beerLocationList) {
-					if (b.getBusinessName().toLowerCase().contains(input.toLowerCase())) {
+					if (b.getBusinessName().toLowerCase()
+							.contains(input.toLowerCase())) {
 						newList.add(b);
 					}
 				}

@@ -49,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/zipCode" 
-        android:text="STate" />
+        android:text="State" />
 
     <TextView
         android:id="@+id/permitType"
@@ -57,6 +57,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/state" 
         android:text="permiteType" />
+    
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/permitType"
+        android:text="Show on Map"
+        android:onClick="showLocation"/>
     
 
     <ListView

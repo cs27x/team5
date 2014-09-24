@@ -7,15 +7,17 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="21" />
-    
-    <uses-permission android:name="android.permission.INTERNET" /> 
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -25,13 +27,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BeerLocationInfoActivity"
-            android:parentActivityName="com.example.vandybeer.MainActivity" >
-            
-            <!--  support for 4.0 and older devices -->
+        <activity
+            android:name=".BeerLocationInfoActivity"
+            android:parentActivityName=".MainActivity" >
+
+            <!-- support for 4.0 and older devices -->
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.vandybeer.MainActivity" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.vandybeer.MainActivity" />
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
         </activity>
     </application>
 

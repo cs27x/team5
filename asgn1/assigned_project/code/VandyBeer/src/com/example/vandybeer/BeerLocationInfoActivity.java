@@ -1,20 +1,23 @@
 package com.example.vandybeer;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -23,6 +26,8 @@ public class BeerLocationInfoActivity extends Activity {
 
 	BeerLocation beerlocation;
 	ArrayAdapter<String> listAdapter;
+	double latitude;
+	double longitude;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -47,6 +52,9 @@ public class BeerLocationInfoActivity extends Activity {
 			beerlocation = new BeerLocation(value);
 
 		}
+		latitude = beerlocation.getLatitude();
+		longitude = beerlocation.getLongitude();
+
 		businessName.setText(beerlocation.getBusinessName());
 		businessOwner.setText(beerlocation.getBusinessOwner());
 		address.setText(beerlocation.getAddress());
@@ -166,6 +174,32 @@ public class BeerLocationInfoActivity extends Activity {
 				});
 
 		alert.show();
+	}
+
+	public void showLocation(View view) {
+		// Create the intent for geoIntent capable devices
+		Intent geoIntent = new Intent(android.content.Intent.ACTION_VIEW,
+				Uri.parse("geo:" + latitude + "," + longitude + "?q="
+						+ latitude + "," + longitude));
+
+		// Check to make sure the intent will work
+		if (intentChecker(geoIntent)) {
+			startActivity(geoIntent);
+
+			// If the intent won't work, use the maps.google.com API
+		} else {
+			Intent geoIntent2 = new Intent(android.content.Intent.ACTION_VIEW,
+					Uri.parse("http://maps.google.com/maps?z=12&t=m&q=loc:"
+							+ latitude + "+" + longitude));
+			startActivity(geoIntent2);
+		}
+	}
+
+	public boolean intentChecker(Intent mIntent) {
+		PackageManager packageManager = getPackageManager();
+		List<ResolveInfo> activities = packageManager.queryIntentActivities(
+				mIntent, 0);
+		return activities.size() > 0;
 	}
 
 }

@@ -11,5 +11,7 @@
     <string name="add_beer">Add Beer</string>
     <string name="off_sale_beer">Display Stores</string>
     <string name="all_locations">Display All Locations</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="show_map">Show Map</string>
 
 </resources>
