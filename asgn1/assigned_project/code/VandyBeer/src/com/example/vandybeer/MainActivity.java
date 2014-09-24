@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import tests.BeerLocation;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
