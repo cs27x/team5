@@ -5,8 +5,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -114,6 +117,7 @@ public class MainActivity extends ActionBarActivity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_search) {
+			search();
 			return true;
 		}
 		if (id == R.id.sortAZ) {
@@ -275,5 +279,45 @@ public class MainActivity extends ActionBarActivity {
 
 	public double rad2deg(double deg) {
 		return (deg * Math.PI / 180);
+	}
+	
+	private void search() {
+
+		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+		alert.setTitle("Search for a location");
+		alert.setMessage("Location Name");
+
+		// Set an EditText view to get user input
+		final EditText editText = new EditText(this);
+		alert.setView(editText);
+
+		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int whichButton) {
+				ArrayList<BeerLocation> newList = new ArrayList<BeerLocation>();
+				String input = editText.getText().toString();
+
+				for (BeerLocation b : beerLocationList) {
+					if (b.getBusinessName().toLowerCase().contains(input.toLowerCase())) {
+						newList.add(b);
+					}
+				}
+				currentBeerLocationList = newList;
+
+				listAdapter.clear();
+				for (BeerLocation B : currentBeerLocationList) {
+					listAdapter.add(B.getBusinessName());
+				}
+			}
+		});
+
+		alert.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int whichButton) {
+						// Canceled.
+					}
+				});
+
+		alert.show();
 	}
 }
