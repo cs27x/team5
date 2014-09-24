@@ -260,6 +260,9 @@ int id collapseActionView 0x7f05000d
 int id default_activity_button 0x7f050028
 int id dialog 0x7f05000e
 int id disableHome 0x7f050008
+int id display_all_locations 0x7f05004a
+int id display_off_sale_beer 0x7f050049
+int id display_on_sale_beer 0x7f050048
 int id dropdown 0x7f05000f
 int id edit_query 0x7f050030
 int id end 0x7f050013
@@ -273,7 +276,6 @@ int id image 0x7f050027
 int id listMode 0x7f050001
 int id listView1 0x7f05003c
 int id list_item 0x7f050029
-int id location_type 0x7f050048
 int id middle 0x7f050012
 int id never 0x7f050009
 int id none 0x7f050010
@@ -353,9 +355,11 @@ int string abc_shareactionprovider_share_with 0x7f0a000c
 int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000f
 int string add_beer 0x7f0a0014
+int string all_locations 0x7f0a0016
 int string app_name 0x7f0a000d
 int string hello_world 0x7f0a000e
-int string location_type 0x7f0a0013
+int string off_sale_beer 0x7f0a0015
+int string on_sale_beer 0x7f0a0013
 int string search 0x7f0a0010
 int string sort_a_to_z 0x7f0a0011
 int string sort_closest 0x7f0a0012

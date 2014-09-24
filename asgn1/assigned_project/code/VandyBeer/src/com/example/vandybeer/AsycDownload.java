@@ -66,8 +66,8 @@ import android.util.Log;
 			*/
 			ArrayList<BeerLocation> list = new ArrayList<BeerLocation>();
 			try {
-				BeerJSON be = new BeerJSON();
-				list = be.run();
+				BeerJSON beer = new BeerJSON();
+				list = beer.run();
 				Log.i("okay", "We're okay");
 			} catch (Exception e) {
 				e.printStackTrace();

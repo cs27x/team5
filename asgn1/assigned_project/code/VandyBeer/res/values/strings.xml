@@ -7,7 +7,9 @@
     <string name="search">Search</string>
     <string name="sort_a_to_z">A-Z</string>
     <string name="sort_closest">Sort Closest</string>
-    <string name="location_type">Location Type</string>
+    <string name="on_sale_beer">Display Bars</string>
     <string name="add_beer">Add Beer</string>
+    <string name="off_sale_beer">Display Stores</string>
+    <string name="all_locations">Display All Locations</string>
 
 </resources>
