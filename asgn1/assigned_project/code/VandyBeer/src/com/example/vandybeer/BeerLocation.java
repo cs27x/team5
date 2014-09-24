@@ -49,6 +49,8 @@ public class BeerLocation {
 		this.comments = "";
 	}
 	
+	
+	
 	public BeerLocation(String beerObject){
 		//TODO convert beer object from string
 		String[] array = beerObject.split("\t");
@@ -73,7 +75,11 @@ public class BeerLocation {
 	
 	@Override
 	public String toString() {
-		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude;
+		String beers = "";
+		for(int i = 0; i < locBeers.size(); i++){
+			beers = beers + locBeers.get(i) + "\n";
+		}
+		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude + "\n" + beers;
 	}
 	
 	public String getBusinessName(){
