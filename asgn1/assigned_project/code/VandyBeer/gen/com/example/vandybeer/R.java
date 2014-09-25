@@ -1100,7 +1100,6 @@ containing a value of this type.
         public static final int beginning=0x7f050011;
         public static final int businessName=0x7f05003d;
         public static final int businessOwner=0x7f05003e;
-        public static final int button1=0x7f050044;
         public static final int checkbox=0x7f05002d;
         public static final int city=0x7f050040;
         public static final int collapseActionView=0x7f05000d;
@@ -1144,6 +1143,7 @@ containing a value of this type.
         public static final int shortcut=0x7f05002e;
         public static final int showCustom=0x7f050007;
         public static final int showHome=0x7f050004;
+        public static final int showMapButton=0x7f050044;
         public static final int showTitle=0x7f050006;
         public static final int show_map=0x7f05004c;
         public static final int sortAZ=0x7f050047;
