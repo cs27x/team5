@@ -1,5 +1,6 @@
 package com.example.vandybeer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -70,6 +71,13 @@ public class MainActivity extends ActionBarActivity {
 		dialog = ProgressDialog.show(MainActivity.this, "",
 				"Getting Beer Locations", true);
 		dialog.show();
+		File file = new File(getApplicationContext().getFilesDir(), "BeerLocations.txt");
+		if(file.exists()){
+			
+		}
+		else{
+			
+		}
 		LicenseDownloadTask downloadTask = new LicenseDownloadTask();
 		downloadTask.execute(this);
 	}
