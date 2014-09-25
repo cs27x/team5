@@ -1,10 +1,13 @@
 package com.example.vandybeer;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -71,15 +74,17 @@ public class MainActivity extends ActionBarActivity {
 		dialog = ProgressDialog.show(MainActivity.this, "",
 				"Getting Beer Locations", true);
 		dialog.show();
-		File file = new File(getApplicationContext().getFilesDir(), "BeerLocations.txt");
-		if(file.exists()){
-			
+		try{
+			FileInputStream in = openFileInput("BeerLocations.txt");
+			Scanner s = new Scanner(in);
+			while(s.hasNextLine()){
+				currentBeerLocationList.add(new BeerLocation(s.nextLine()));
+			}
+			s.close();
+		}catch(FileNotFoundException e){
+			LicenseDownloadTask downloadTask = new LicenseDownloadTask();
+			downloadTask.execute(this);
 		}
-		else{
-			
-		}
-		LicenseDownloadTask downloadTask = new LicenseDownloadTask();
-		downloadTask.execute(this);
 	}
 
 	public void displayLicenses(ArrayList<BeerLocation> locations) {
