@@ -57,6 +57,7 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc2.getBeers().get(0).getComments().equals("It sucks"));
 		assertTrue(loc2.getBeers().get(3).getName().equals("Modelo"));
 		assertTrue(loc2.getBeers().get(3).getComments().equals("IDK"));
+		assertTrue(loc2.toString().equals(construct));
 		
 	}
 	
