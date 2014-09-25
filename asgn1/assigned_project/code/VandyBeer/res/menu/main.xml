@@ -3,10 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.vandybeer.MainActivity" >
 
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/ic_launcher"
+          android:showAsAction="never"
+    	  android:title="@string/search"/>
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/sortAZ"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/sort_a_to_z"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/sort_closest"
+        android:orderInCategory="100"
+        android:title="@string/sort_closest"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/display_on_sale_beer"
+        android:orderInCategory="100"
+        android:title="@string/on_sale_beer"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/display_off_sale_beer"
+        android:orderInCategory="100"
+        android:title="@string/off_sale_beer"
+        app:showAsAction="never"/>
+     <item
+        android:id="@+id/display_all_locations"
+        android:orderInCategory="100"
+        android:title="@string/all_locations"
+        app:showAsAction="never"/>
+      <item
+        android:id="@+id/show_map"
+        android:orderInCategory="100"
+        android:title="@string/show_map"
         app:showAsAction="never"/>
 
 </menu>

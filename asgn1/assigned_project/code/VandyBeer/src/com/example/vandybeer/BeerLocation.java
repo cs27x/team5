@@ -1,21 +1,79 @@
 package com.example.vandybeer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BeerLocation {
 	private String businessName;
 	private String businessOwner;
 	private String address;
 	private String state;
-	private int permitType;  //0 for off-sale, 1 for on-sale, 2 for both
+	private String permitType; 
 	private String city;
 	private int zipCode;
 	private double latitude, longitude;
+	private double distFromCur;
+	// Storing the location's beers - want to store list of beers for a given location
+	private List<Beer> locBeers = new ArrayList<Beer>();
+	// Storing the location's beers + comments
+	private String comments;
+	
+	// Include list of beers here instead of a set?
+	
+	public BeerLocation(@JsonProperty("business_name") String businessName,
+			@JsonProperty("business_owner") String businessOwner,
+			@JsonProperty("zip") int zipCode,
+			@JsonProperty("permit_type") String permitType,
+			@JsonProperty("address") String address,
+			@JsonProperty("state") String state,
+			@JsonProperty("city") String city,
+			@JsonProperty("latitude") double latitude,
+			@JsonProperty("longitude") double longitude) {
+		super();
+		this.businessName = businessName;
+		this.businessOwner = businessOwner;
+		this.zipCode = zipCode;
+		this.permitType = permitType;
+		this.address = address;
+		this.state = state;
+		this.city = city;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.distFromCur = 0.0;
+		this.comments = "";
+	}
+	
+	public BeerLocation(String beerObject){
+		//TODO convert beer object from string
+		String[] array = beerObject.split("\t");
+		this.businessName = array[0];
+		this.businessOwner = array[1];
+		this.address = array[2];
+		this.city = array[3];
+		this.state = array[4];
+		this.zipCode = Integer.parseInt(array[5]);
+		this.permitType = array[6];
+		this.latitude = Double.parseDouble(array[7]);
+		this.longitude = Double.parseDouble(array[8]);
+		this.distFromCur = 0.0;
+		this.comments = "";
+	}
 	
 	public BeerLocation(){
-		businessName = "";	businessOwner = ""; state = "";
-		city = "";	address = "";
-		permitType = 0;	zipCode = 0;
-		latitude = 0; longitude = 0;
+		businessName = "";	businessOwner = ""; zipCode = 0;
+		permitType = ""; address = ""; state = ""; city = "";
+		latitude = 0.0; longitude = 0.0; distFromCur = 0.0; comments = "";
+	}
+	
+	@Override
+	public String toString() {
+		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude;
 	}
 	
 	public String getBusinessName(){
@@ -26,7 +84,7 @@ public class BeerLocation {
 		return address;
 	}
 	
-	public int getPermitType(){
+	public String getPermitType(){
 		return permitType;
 	}
 	
@@ -58,6 +116,19 @@ public class BeerLocation {
 		return state;
 	} 
 	
+	public double getDistance(){
+		return distFromCur;
+	}
+	
+	// Get beer list from location
+	public List<Beer> getBeers(){
+		return locBeers;
+	}
+	
+	// Get comments for the location
+	public String getComments(){
+		return comments;
+	}
 	public void setBusinessName(String name){
 		businessName = name;
 	}
@@ -67,12 +138,7 @@ public class BeerLocation {
 	}
 	
 	public void setPermitType(String nPermitType){
-		if(nPermitType.equals("ON-SALE BEER"))
-			permitType = 1;
-		else if(nPermitType.equals("OFF-SALE BEER"))
-			permitType = 0;
-		else
-			permitType = 2;
+		permitType = nPermitType;
 	}
 	
 	public void setCity(String nCity){
@@ -99,13 +165,46 @@ public class BeerLocation {
 		state = nState;
 	}
 	
+	public void setDistance(double dist){
+		distFromCur = dist;
+	}
+	// Add beer to location set
+	public void addBeer(Beer nBeer){
+		locBeers.add(nBeer);
+	}
+	
+	// Remove a beer from location set
+	// Only remove from the set if it's not empty
+	public void removeBeer(int index){
+		locBeers.remove(index);
+		//if(containsBeer(nBeer)) locBeers.remove(nBeer);
+		
+		// TODO works with STRING BEER
+		// else do nothing, already empty
+	}
+	
+	// Set comment for given beer at location
+	public void setLocComments(String nComment){
+		comments = nComment;
+	}
+	
 	//compares two Locations based on their business name for ease of sorting
 	// Returns negative if lessThan, 0 if equal, positive if greater than
 	public int compareBusinessName(BeerLocation l){
 		return businessName.compareTo(l.businessName);
 	}
 	
+	/*//compares two BeerLocations based on beer permit
+	public int comparePermitType(BeerLocation l){
+		if(l.getPermitType().equals("ON/OFF-SALE BEER")) //ensures that on/off sale permits are seen first
+			return -1;
+		else{
+			return 
+		}
+	}*/
 	//to be implemented
+	
+	
 	public int compareDistance(BeerLocation l){
 		return 0;
 	}
