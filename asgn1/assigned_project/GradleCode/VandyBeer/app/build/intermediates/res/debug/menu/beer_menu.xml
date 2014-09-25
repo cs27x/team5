@@ -8,4 +8,4 @@
           android:showAsAction="never"
     	  android:title="@string/add_beer"/>
 </menu>
-<!-- From: file:/C:/Users/Sean/AndroidstudioProjects/VandyBeer/app/src/main/res/menu/beer_menu.xml -->
+<!-- From: file:/C:/Users/Sean/Documents/GitHub/repos/cs278_2014/team5/asgn1/assigned_project/GradleCode/VandyBeer/app/src/main/res/menu/beer_menu.xml -->

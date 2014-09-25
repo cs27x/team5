@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- From: file:/C:/Users/Sean/AndroidstudioProjects/VandyBeer/app/src/main/res/values-w820dp/dimens.xml -->
+    <!-- From: file:/C:/Users/Sean/Documents/GitHub/repos/cs278_2014/team5/asgn1/assigned_project/GradleCode/VandyBeer/app/src/main/res/values-w820dp/dimens.xml -->
     <eat-comment />
 
     <dimen name="activity_horizontal_margin">64dp</dimen>
