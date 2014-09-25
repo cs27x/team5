@@ -53,6 +53,8 @@ public class BeerLocation {
 	
 	public BeerLocation(String beerObject){
 		//TODO convert beer object from string
+		String beerList = beerObject.substring(beerObject.indexOf("|")+1);
+		beerObject = beerObject.substring(0, beerObject.indexOf("|"));
 		String[] array = beerObject.split("\t");
 		this.businessName = array[0];
 		this.businessOwner = array[1];
@@ -63,8 +65,16 @@ public class BeerLocation {
 		this.permitType = array[6];
 		this.latitude = Double.parseDouble(array[7]);
 		this.longitude = Double.parseDouble(array[8]);
+		constructBeerList(beerList);
 		this.distFromCur = 0.0;
 		this.comments = "";
+	}
+	
+	private void constructBeerList(String beerList){
+		String[] array = beerList.split(">");
+		for(int i = 0; i<array.length; i++){
+			locBeers.add(new Beer(array[i]));
+		}
 	}
 	
 	public BeerLocation(){
@@ -77,9 +87,9 @@ public class BeerLocation {
 	public String toString() {
 		String beers = "";
 		for(int i = 0; i < locBeers.size(); i++){
-			beers = beers + locBeers.get(i) + "\n";
+			beers.concat(locBeers.get(i).toString());
 		}
-		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude + "\n" + beers;
+		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude + "|" + beers;
 	}
 	
 	public String getBusinessName(){

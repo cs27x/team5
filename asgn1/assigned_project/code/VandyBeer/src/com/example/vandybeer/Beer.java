@@ -10,8 +10,15 @@ public class Beer {
 		mComments = "";
 	}
 	
-	public Beer(String name){
-		mName = name;
+	public Beer(String value){
+		if(value.charAt(0) != '<'){
+			mName = value;
+			mComments = "";
+		}
+		else{
+			mName = value.substring(value.indexOf("<")+1, value.indexOf("\t"));
+			mComments = value.substring(value.indexOf("\t")+1);
+		}
 	}
 	
 	public String toString() {
