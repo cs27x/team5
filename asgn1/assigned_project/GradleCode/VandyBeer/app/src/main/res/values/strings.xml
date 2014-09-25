@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">VandyBeer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="sort_a_to_z">A-Z</string>
+    <string name="sort_closest">Sort Closest</string>
+    <string name="on_sale_beer">Display Bars</string>
+    <string name="add_beer">Add Beer</string>
+    <string name="off_sale_beer">Display Stores</string>
+    <string name="all_locations">Display All Locations</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="show_map">Show Map</string>
+
+</resources>
