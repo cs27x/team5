@@ -3,6 +3,7 @@ package com.example.vandybeer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -336,5 +337,22 @@ public class MainActivity extends ActionBarActivity {
 
 		alert.show();
 
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		String filename = "BeerLocations.txt";
+		FileOutputStream outputStream;
+		try {
+			outputStream = openFileOutput(filename, Context.MODE_PRIVATE);
+			for (BeerLocation location : beerLocationList) {
+				String output = location.toString() + "\n";
+				outputStream.write(output.getBytes());
+			}
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
