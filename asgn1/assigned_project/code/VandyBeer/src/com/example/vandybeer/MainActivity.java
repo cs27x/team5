@@ -1,5 +1,13 @@
 package com.example.vandybeer;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -35,6 +43,7 @@ public class MainActivity extends ActionBarActivity {
 	boolean displayOn = true;
 	boolean displayOff = true;
 	boolean sortAtoZ = true;
+	boolean isSaved = false;
 
 	private ArrayList<BeerLocation> currentBeerLocationList;
 
@@ -79,9 +88,11 @@ public class MainActivity extends ActionBarActivity {
 		currentBeerLocationList = locations;
 
 		Log.i("before for loop", "hello");
+
 		for (BeerLocation loc : currentBeerLocationList) {
 			listAdapter.add(loc.getBusinessName());
 		}
+
 		listView.setAdapter(listAdapter);
 		Log.i("after for loop", "bleh");
 		SortAlpha();

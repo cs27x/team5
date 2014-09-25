@@ -54,7 +54,7 @@ public class BeerLocationInfoActivity extends Activity {
 		}
 		latitude = beerlocation.getLatitude();
 		longitude = beerlocation.getLongitude();
-
+		
 		businessName.setText(beerlocation.getBusinessName());
 		businessOwner.setText(beerlocation.getBusinessOwner());
 		address.setText(beerlocation.getAddress());
