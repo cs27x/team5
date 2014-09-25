@@ -41,7 +41,7 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc.getLongitude() == 0);
 		assertTrue(loc.getZipCode() == 0);*/
 		String beerList = "<Miller\tIt sucks><Bud Light\tDelicious!!!><Red Stripe\tToo small><Modelo\tIDK>";
-		String construct = "Name\tOwner Last\t2301 Vanderbilt Place\tcity\tTN\t55566\tON-SALE BEER\t33.45566\t-43.215" + beerList;
+		String construct = "Name\tOwner Last\t2301 Vanderbilt Place\tcity\tTN\t55566\tON-SALE BEER\t33.45566\t-43.215" + "|" +  beerList;
 		BeerLocation loc2 = new BeerLocation(construct);
 		assertTrue(loc2.getAddress().equals("2301 Vanderbilt Place"));
 		assertTrue(loc2.getBusinessName().equals("Name"));
@@ -58,8 +58,8 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc2.getBeers().get(3).getName().equals("Modelo"));
 		assertTrue(loc2.getBeers().get(3).getComments().equals("IDK"));
 		assertTrue(loc2.toString().equals(construct));
-		
 	}
+	
 	
 	@Test
 	public void testJSONConstructor(){
@@ -167,11 +167,45 @@ public class BeerLocationTests extends TestCase {
 		loc.removeBeer(0); loc.removeBeer(0);
 		assertTrue(loc.getBeers().isEmpty());
 		
+		loc.addBeer(bud); loc.addBeer(pbr); loc.addBeer(red);
+		
 		assertTrue(loc.getComments().equals(""));
 		loc.setLocComments("Good beer, bad food");
 		assertTrue(loc.getComments().equals("Good beer, bad food"));
 		loc.setLocComments("Music on Fridays");
 		assertTrue(loc.getComments().equals("Music on Fridays"));
 		
+		String correct = "\t\t\t\t\t0\t\t0.0\t0.0|<Bud Light\t><Pabst Blue Ribbon\t><Red Stripe\t>"; 
+		assertTrue(loc.toString().equals(correct));
+		
+		loc.getBeers().get(0).setComment("Pretty Good");
+		loc.getBeers().get(2).setComment("Small");
+		correct = "\t\t\t\t\t0\t\t0.0\t0.0|<Bud Light\tPretty Good><Pabst Blue Ribbon\t><Red Stripe\tSmall>"; 
+		assertTrue(loc.toString().equals(correct));
+		
+		Beer b = new Beer("Miller");
+		assertTrue(b.getName().equals("Miller"));
+		assertTrue(b.getComments().equals(""));
+		assertTrue(b.toString().equals("<Miller\t>"));
+		
+		String test = "<Kubuli\t>";
+		String[] arr = test.split(">");
+		b = new Beer(arr[0]);
+		assertTrue(b.getName().equals("Kubuli"));
+		assertTrue(b.getComments().equals(""));
+		assertTrue(b.toString().equals("<Kubuli\t>"));
+		
+		correct = "Mapco\tMaps\t664 Old Hickory\tNashville\tTN\t33076\tON-SALE BEER\t33.5\t-86.7|";
+		loc = new BeerLocation(correct);
+		assertTrue(loc.getBusinessName().equals("Mapco"));
+		assertTrue(loc.getBusinessOwner().equals("Maps"));
+		assertTrue(loc.getAddress().equals("664 Old Hickory"));
+		assertTrue(loc.getCity().equals("Nashville"));
+		assertTrue(loc.getState().equals("TN"));
+		assertTrue(loc.getZipCode()==33076);
+		assertTrue(loc.getPermitType().equals("ON-SALE BEER"));
+		assertTrue(loc.getLatitude() == 33.5);
+		assertTrue(loc.getLongitude() == -86.7);
+		assertTrue(loc.toString().equals(correct));
 	}
 }

@@ -73,6 +73,9 @@ public class BeerLocation {
 	private void constructBeerList(String beerList){
 		String[] array = beerList.split(">");
 		for(int i = 0; i<array.length; i++){
+			if(array[i].equals("")){
+				continue;
+			}
 			locBeers.add(new Beer(array[i]));
 		}
 	}
@@ -87,7 +90,7 @@ public class BeerLocation {
 	public String toString() {
 		String beers = "";
 		for(int i = 0; i < locBeers.size(); i++){
-			beers.concat(locBeers.get(i).toString());
+			beers = beers + locBeers.get(i).toString();
 		}
 		return this.businessName + "\t" + this.businessOwner + "\t" + this.address + "\t" + this.city + "\t" + this.state + "\t" + this.zipCode + "\t" + this.permitType + "\t" + this.latitude + "\t" + this.longitude + "|" + beers;
 	}
