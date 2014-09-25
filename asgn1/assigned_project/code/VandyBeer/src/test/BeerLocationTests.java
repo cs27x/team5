@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import com.example.vandybeer.BeerLocation;
 import com.example.vandybeer.Beer;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 
 public class BeerLocationTests extends TestCase {
@@ -40,8 +40,8 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc.getLatitude() == 0);
 		assertTrue(loc.getLongitude() == 0);
 		assertTrue(loc.getZipCode() == 0);*/
-		
-		String construct = "Name\tOwner Last\t2301 Vanderbilt Place\tcity\tTN\t55566\tON-SALE BEER\t33.45566\t-43.215";
+		String beerList = "<Miller\tIt sucks><Bud Light\tDelicious!!!><Red Stripe\tToo small><Modelo\tIDK>";
+		String construct = "Name\tOwner Last\t2301 Vanderbilt Place\tcity\tTN\t55566\tON-SALE BEER\t33.45566\t-43.215" + beerList;
 		BeerLocation loc2 = new BeerLocation(construct);
 		assertTrue(loc2.getAddress().equals("2301 Vanderbilt Place"));
 		assertTrue(loc2.getBusinessName().equals("Name"));
@@ -52,6 +52,13 @@ public class BeerLocationTests extends TestCase {
 		assertTrue(loc2.getLatitude() == 33.45566);
 		assertTrue(loc2.getLongitude() == -43.215);
 		assertTrue(loc2.getZipCode() == 55566);
+		assertTrue(loc2.getBeers().size() == 4);
+		assertTrue(loc2.getBeers().get(0).getName().equals("Miller"));
+		assertTrue(loc2.getBeers().get(0).getComments().equals("It sucks"));
+		assertTrue(loc2.getBeers().get(3).getName().equals("Modelo"));
+		assertTrue(loc2.getBeers().get(3).getComments().equals("IDK"));
+		assertTrue(loc2.toString().equals(construct));
+		
 	}
 	
 	@Test

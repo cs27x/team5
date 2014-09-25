@@ -222,6 +222,7 @@ public class MainActivity extends ActionBarActivity {
 		distance(latitude, longitude);
 	}
 
+
 	// - sort by closest places to current location (need GPS location of some
 	// sort).
 	// - testing all functions
@@ -321,5 +322,6 @@ public class MainActivity extends ActionBarActivity {
 				});
 
 		alert.show();
+
 	}
 }
